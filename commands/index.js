@@ -1,20 +1,20 @@
 require('dotenv').config()
-const Discord = require('discord.js');
+const Discord = require('discord.js')
 
 const ping = {
   name: 'ping',
   description: 'Ping!',
-  execute: (message) => {
-    message.channel.send('Pong');
-  },
+  execute: message => {
+    message.channel.send('Pong')
+  }
 }
 
 const pong = {
   name: 'pong',
   description: 'Pong!',
-  execute: (message) => {
-    message.channel.send('Ping');
-  },
+  execute: message => {
+    message.channel.send('Ping')
+  }
 }
 
 const echo = {
@@ -26,7 +26,7 @@ const echo = {
 
 const embed = {
   name: 'embed',
-  execute: (message) => {
+  execute: message => {
     const embed = new Discord.MessageEmbed()
       .setColor('#0099ff')
       .setTitle('Some title')
@@ -38,19 +38,14 @@ const embed = {
         { name: 'Regular field title', value: 'Some value here' },
         { name: '\u200B', value: '\u200B' },
         { name: 'Inline field title', value: 'Some value here', inline: true },
-        { name: 'Inline field title', value: 'Some value here', inline: true },
+        { name: 'Inline field title', value: 'Some value here', inline: true }
       )
       .addField('Inline field title', 'Some value here', true)
       .setImage('https://i.imgur.com/wSTFkRM.png')
       .setTimestamp()
-      .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
+      .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png')
     message.channel.send(embed)
   }
 }
 
-module.exports = [
-  ping,
-  pong,
-  echo,
-  embed
-]
+module.exports = [ping, pong, echo, embed]
