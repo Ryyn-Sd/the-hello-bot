@@ -1,6 +1,9 @@
-const { prefix } = require('./config.json')
+const { prefix, disableDMs } = require('./config.json')
 module.exports = (message, client) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return
+  if (disableDMs && message.channel.type === 'dm') {
+    return message.reply("I can't execute commands inside DMs!")
+  }
 
   const args = message.content.slice(prefix.length).trim().split(/ +/)
   const commandName = args.shift().toLowerCase()
@@ -9,7 +12,8 @@ module.exports = (message, client) => {
     client.commands.get(commandName) ||
     client.commands.find(
       cmd => cmd.aliases && cmd.aliases.includes(commandName)
-    )
+    ) ||
+    client.commands.find(cmd => cmd.regex && cmd.regex.test(commandName))
 
   if (!command) return
 
@@ -34,7 +38,7 @@ module.exports = (message, client) => {
   }
 
   try {
-    command.execute(message, args)
+    command.execute(message, args, client)
   } catch (error) {
     console.error(error)
     message.reply('there was an error trying to execute that command!')
