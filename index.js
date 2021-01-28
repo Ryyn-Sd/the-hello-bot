@@ -1,7 +1,10 @@
 const Discord = require('discord.js')
-const { token, plugins } = require('./config.json')
+// const store = require('./store')
+const http = require('http')
+const { token, plugins, cron } = require('./config.json')
 const messageHandler = require('./message')
 const commands = require('./commands')
+const { createConnection } = require('net')
 
 try {
   require('dotenv').config()
@@ -43,7 +46,17 @@ const tryFetch = async (reaction, user) => {
 
 client.once('ready', () => {
   console.log('Ready!')
+  http.createServer((_, res) => {
+    res.writeHead(200, {})
+    res.end()
+  }).listen(9359)
 })
+
+if (cron) {
+  Object.entries(cron).forEach(e => {
+
+  })
+}
 
 client.on('message', message => messageHandler(message, client))
 
