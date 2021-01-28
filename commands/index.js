@@ -118,4 +118,12 @@ const joke = {
   }
 }
 
-module.exports = [ping, pong, echo, embed, hi, nooo, yess, prune, joke]
+const cool = {
+  name: 'cool',
+  description: 'Hi!',
+  execute: message => {
+    message.channel.send('I\'m cool dude')
+  }
+}
+
+module.exports = [ping, pong, echo, embed, hi, nooo, yess, prune, joke, cool]
