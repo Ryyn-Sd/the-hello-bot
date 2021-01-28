@@ -1,6 +1,7 @@
-const { prefix, disableDMs } = require('./config.json')
+const { prefix, disableDMs, blocked } = require('./config.json')
 module.exports = (message, client) => {
-  if (!message.content.startsWith(prefix) || message.author.bot) return
+  const isBlocked = blocked ? blocked.includes(message.author.id) : false
+  if (!message.content.startsWith(prefix) || message.author.bot || isBlocked) return
   if (disableDMs && message.channel.type === 'dm') {
     return message.reply("I can't execute commands inside DMs!")
   }
